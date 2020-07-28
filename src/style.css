@@ -9,6 +9,10 @@
     -fx-background-radius: 20;
 }
 
+Label{
+    -fx-font-size: 25;
+}
+
 .add-member-title-style{
     -fx-font-size: 80;
     -fx-text-fill: black;
@@ -22,6 +26,12 @@ Button {
 
 Button:hover {
     -fx-font-weight: bold;
+    -fx-border-radius: 50;
     -fx-border-color: white;
     -fx-border-width: 2px;
+}
+TextField{
+    -fx-font-size: 20;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
