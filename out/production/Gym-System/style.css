@@ -1,0 +1,27 @@
+.root {
+    -fx-background-color: #242424;
+}
+
+.main-container-style {
+    -fx-background-color: #05D8C5;
+    -fx-background-radius: 20;
+}
+
+.add-member-title-style{
+    -fx-font-size: 80;
+    -fx-text-fill: white;
+}
+
+Button {
+    -fx-background-color: #BC85FD;
+    -fx-border-color: black;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: white;
+}
+
+Button:hover {
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
