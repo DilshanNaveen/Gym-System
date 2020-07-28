@@ -63,12 +63,10 @@ public class Main extends Application {
 
         // Creating Anchor pane for left column
         AnchorPane leftColumn  = new AnchorPane();
-        AnchorPane.setTopAnchor(leftColumn, 20.0);
-        AnchorPane.setLeftAnchor(leftColumn, 20.0);
+        AnchorPane.setTopAnchor(leftColumn, 50.0);
+        AnchorPane.setLeftAnchor(leftColumn, 50.0);
         leftColumn.setPrefWidth(300);
         leftColumn.setPrefHeight(100);
-
-        inputSection.getChildren().addAll(leftColumn);
 
         // First Name Label.
         Label firstNameLabel = new Label("First Name");
@@ -152,12 +150,10 @@ public class Main extends Application {
 
         // Creating Anchor pane for right column
         AnchorPane rightColumn  = new AnchorPane();
-        AnchorPane.setTopAnchor(rightColumn, 25.0);
+        AnchorPane.setTopAnchor(rightColumn, 55.0);
         AnchorPane.setLeftAnchor(rightColumn, 500.0);
         rightColumn.setPrefWidth(300);
         rightColumn.setPrefHeight(100);
-
-        inputSection.getChildren().addAll(rightColumn);
 
         // Gender Label.
         Label GenderLabel = new Label("Gender");
@@ -203,11 +199,30 @@ public class Main extends Application {
         otherInformationTextArea.setPrefWidth(300);
         otherInformationTextArea.setPrefHeight(230);
 
+        // Add Member Button.
+        Button addMemberButton = new Button("Add Member");
+        addMemberButton.getStyleClass().add("add-member-button");
+        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
+        AnchorPane.setTopAnchor(addMemberButton, 30.0);
+        AnchorPane.setLeftAnchor(addMemberButton, 900.0);
+        addMemberButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        addMemberButton.setPrefWidth(300);
+        addMemberButton.setPrefHeight(50);
+
+        // Close Button.
+        Button closeButton = new Button("Close");
+        closeButton.setOnMouseClicked(e -> addMember.close());
+        AnchorPane.setTopAnchor(closeButton, 220.0);
+        AnchorPane.setLeftAnchor(closeButton, 925.0);
+        closeButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        closeButton.setPrefWidth(300);
+        closeButton.setPrefHeight(50);
 
         leftColumn.getChildren().addAll(firstNameLabel, firstNameTextField, lastLabel, lastTextField, nationalIdLabel, nationalIdTextField, contactNumberLabel, contactNumberTextField, addressLabel, addressTextField);
         rightColumn.getChildren().addAll(GenderLabel, genderComboBox, birthdayLabel, birthDatePicker, otherInformationLabel, otherInformationTextArea);
+        inputSection.getChildren().addAll(leftColumn, rightColumn, addMemberButton);
 
-        addMemberPane.getChildren().addAll(buttonSection, inputSection, newMemberTitle);
+        addMemberPane.getChildren().addAll(buttonSection, inputSection, newMemberTitle, closeButton);
         addMemberScene.getStylesheets().add("style.css");
         addMember.setResizable(false);
         addMember.setScene(addMemberScene);

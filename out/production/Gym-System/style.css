@@ -32,19 +32,23 @@ Button:hover {
 }
 TextField{
     -fx-font-size: 20;
-    -fx-border-color: black;
+    -fx-border-color: #707070;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
 }
 TextArea, DatePicker{
     -fx-font-size: 20;
     -fx-background-color: white;
-    -fx-border-color: black;
+    -fx-border-color: #707070;
 }
 ComboBox{
     -fx-font-size: 20;
     -fx-background-color: white;
-    -fx-border-color: black;
+    -fx-border-color: #707070;
     -fx-border-radius: 20;
     -fx-background-radius: 15;
+}
+
+.add-member-button{
+    -fx-background-color: #47C9A7;
 }
