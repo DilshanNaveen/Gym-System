@@ -1,22 +1,22 @@
 .root {
-    -fx-background-color: #242424;
+    -fx-background-color: #F9FBFC;
 }
 
 .main-container-style {
-    -fx-background-color: #05D8C5;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #707070;
+    -fx-border-radius: 20;
     -fx-background-radius: 20;
 }
 
 .add-member-title-style{
     -fx-font-size: 80;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 Button {
-    -fx-background-color: #BC85FD;
-    -fx-border-color: black;
+    -fx-background-color: #D10D1B;
     -fx-background-radius: 50;
-    -fx-border-radius: 50;
     -fx-text-fill: white;
 }
 
