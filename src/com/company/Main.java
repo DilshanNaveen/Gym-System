@@ -203,7 +203,7 @@ public class Main extends Application {
         Button addMemberButton = new Button("Add Member");
         addMemberButton.getStyleClass().add("add-member-button");
         // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
-        AnchorPane.setTopAnchor(addMemberButton, 30.0);
+        AnchorPane.setTopAnchor(addMemberButton, 50.0);
         AnchorPane.setLeftAnchor(addMemberButton, 900.0);
         addMemberButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         addMemberButton.setPrefWidth(300);
@@ -212,7 +212,7 @@ public class Main extends Application {
         // Close Button.
         Button closeButton = new Button("Close");
         closeButton.setOnMouseClicked(e -> addMember.close());
-        AnchorPane.setTopAnchor(closeButton, 220.0);
+        AnchorPane.setTopAnchor(closeButton, 250.0);
         AnchorPane.setLeftAnchor(closeButton, 925.0);
         closeButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         closeButton.setPrefWidth(300);
