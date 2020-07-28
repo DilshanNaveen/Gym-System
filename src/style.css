@@ -32,6 +32,19 @@ Button:hover {
 }
 TextField{
     -fx-font-size: 20;
+    -fx-border-color: black;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+}
+TextArea, DatePicker{
+    -fx-font-size: 20;
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+ComboBox{
+    -fx-font-size: 20;
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 15;
 }

@@ -1,10 +1,10 @@
 package com.company;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -149,15 +149,63 @@ public class Main extends Application {
         addressTextField.setPrefWidth(300);
         addressTextField.setPrefHeight(20);
 
+
+        // Creating Anchor pane for right column
         AnchorPane rightColumn  = new AnchorPane();
-        AnchorPane.setTopAnchor(rightColumn, 20.0);
-        AnchorPane.setLeftAnchor(rightColumn, 20.0);
+        AnchorPane.setTopAnchor(rightColumn, 25.0);
+        AnchorPane.setLeftAnchor(rightColumn, 500.0);
         rightColumn.setPrefWidth(300);
         rightColumn.setPrefHeight(100);
 
+        inputSection.getChildren().addAll(rightColumn);
+
+        // Gender Label.
+        Label GenderLabel = new Label("Gender");
+        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
+        AnchorPane.setLeftAnchor(GenderLabel, 20.0);
+        GenderLabel.setPrefWidth(300);
+        GenderLabel.setPrefHeight(40);
+
+        ObservableList<String> options =
+                FXCollections.observableArrayList("Male", "Female", "Other");
+        final ComboBox genderComboBox = new ComboBox(options);
+        genderComboBox.setValue("Male");
+        AnchorPane.setLeftAnchor(genderComboBox, 60.0);
+        AnchorPane.setTopAnchor(genderComboBox, 40.0);
+        genderComboBox.setPrefWidth(300);
+        genderComboBox.setPrefHeight(20);
+
+        // Birthday Label.
+        Label birthdayLabel = new Label("Birthday");
+        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
+        AnchorPane.setTopAnchor(birthdayLabel, 90.0);
+        AnchorPane.setLeftAnchor(birthdayLabel, 20.0);
+        birthdayLabel.setPrefWidth(300);
+        birthdayLabel.setPrefHeight(40);
+
+        DatePicker birthDatePicker = new DatePicker();
+        AnchorPane.setTopAnchor(birthDatePicker, 130.0);
+        AnchorPane.setLeftAnchor(birthDatePicker, 60.0);
+        birthDatePicker.setPrefWidth(300);
+        birthDatePicker.setPrefHeight(40);
+
+        // Other Information Label.
+        Label otherInformationLabel = new Label("Other Information");
+        AnchorPane.setTopAnchor(otherInformationLabel, 180.0);
+        AnchorPane.setLeftAnchor(otherInformationLabel, 20.0);
+        otherInformationLabel.setPrefWidth(300);
+        otherInformationLabel.setPrefHeight(40);
+
+        // Other Information Text Area.
+        TextArea otherInformationTextArea = new TextArea();
+        AnchorPane.setTopAnchor(otherInformationTextArea, 220.0);
+        AnchorPane.setLeftAnchor(otherInformationTextArea, 60.0);
+        otherInformationTextArea.setPrefWidth(300);
+        otherInformationTextArea.setPrefHeight(230);
+
 
         leftColumn.getChildren().addAll(firstNameLabel, firstNameTextField, lastLabel, lastTextField, nationalIdLabel, nationalIdTextField, contactNumberLabel, contactNumberTextField, addressLabel, addressTextField);
-
+        rightColumn.getChildren().addAll(GenderLabel, genderComboBox, birthdayLabel, birthDatePicker, otherInformationLabel, otherInformationTextArea);
 
         addMemberPane.getChildren().addAll(buttonSection, inputSection, newMemberTitle);
         addMemberScene.getStylesheets().add("style.css");
