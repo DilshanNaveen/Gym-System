@@ -52,3 +52,6 @@ ComboBox{
 .add-member-button{
     -fx-background-color: #47C9A7;
 }
+TableColumn{
+    -fx-font-size: 10;
+}
