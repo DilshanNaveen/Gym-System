@@ -13,39 +13,41 @@ public class Console {
     }
 
     public static void main(String[] args) {
+        System.out.println("\t===================================");
+        System.out.println("\t Welcome To Gym Management System");
+        System.out.println("\t===================================\n");
 
-    while (true) {
-        Scanner newScanner = new Scanner(System.in);
-        System.out.println("\n Select \n");
-        System.out.println("\t============================\n");
-        System.out.println(" 1.Enter No 1 to add members.");
-        System.out.println(" 2.Enter No 2 to delete members.");
-        System.out.println(" 3.Enter No 3 to Print.");
-        System.out.println(" 4.Enter No 4 to Search Members.");
-        System.out.println(" 5.Enter No 5 to Quit. \n");
+        while (true) {
+            Scanner newScanner = new Scanner(System.in);
+            System.out.println("Chose Option");
+            System.out.println(" 1.Enter No 1 to add members.");
+            System.out.println(" 2.Enter No 2 to delete members.");
+            System.out.println(" 3.Enter No 3 to Print.");
+            System.out.println(" 4.Enter No 4 to Search Members.");
+            System.out.println(" 5.Enter No 5 to Quit. \n");
 
-        System.out.print("Your choice : ");
-        int choice = newScanner.nextInt();
+            System.out.print("Your choice : ");
+            int choice = newScanner.nextInt();
 
-        switch (choice) {
-            case 1:
-                insertMember();
-                break;
-            case 2:
-                deleteMember();
-                break;
-            case 3:
-                printReport();
-                break;
-            case 4:
-                Table.launch(Table.class, args);
-                break;
-            case 5:
-                System.exit(0);
-                break;
+            switch (choice) {
+                case 1:
+                    insertMember();
+                    break;
+                case 2:
+                    deleteMember();
+                    break;
+                case 3:
+                    printReport();
+                    break;
+                case 4:
+                    Table.launch(Table.class, args);
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
 
+            }
         }
-    }
     }
 
     private static void insertMember() {
@@ -53,6 +55,10 @@ public class Console {
         Scanner newScanner = new Scanner(System.in);
 
         try{
+            System.out.println("\n \t===================================");
+            System.out.println("\t\t\t Add New Member");
+            System.out.println("\t===================================\n");
+
             System.out.print("Enter Membership No : ");
             Integer membershipNo = newScanner.nextInt();
 
@@ -75,8 +81,7 @@ public class Console {
                     System.out.print("Enter Your Contact Number : ");
                     Integer contactNumber = newScanner.nextInt();
 
-                    System.out.print("Enter Your Membership Start Date (yyyy-mm-dd) : ");
-                    String membershipStartDate = newScanner.next();
+                    String membershipStartDate = getDate();
 
                     System.out.print("Enter Your Birthday (yyyy-mm-dd) : ");
                     String birthday = newScanner.next();
@@ -135,5 +140,30 @@ public class Console {
         System.out.print("\n Enter Your School : ");
         String schoolName = studentScanner.nextLine();
         return schoolName;
+    }
+
+    private static String getDate(){
+        String date = "";
+        try {
+            Scanner newScanner = new Scanner(System.in);
+            System.out.print("Enter Your Membership Start Date (yyyy-mm-dd)");
+            System.out.print("Year : ");
+            String membershipStartYear = newScanner.next();
+            if (membershipStartYear.length() == 4) {
+                System.out.print("Month : ");
+                Integer membershipStartMonth = newScanner.nextInt();
+                if (String.valueOf(membershipStartMonth).length() == 2 && membershipStartMonth <= 12 && membershipStartMonth >= 1) {
+                    System.out.print("Date : ");
+                    Integer membershipStartDate = newScanner.nextInt();
+                    if (String.valueOf(membershipStartDate).length() == 2 && membershipStartDate <= 31 && membershipStartDate >= 1) {
+                        date = membershipStartYear + "-" + membershipStartMonth + "-" + membershipStartDate;
+                    }
+                }
+            }
+            return date;
+        }catch (Exception IllegalArgumentException){
+            System.out.println("Please Enter Valid Data");
+        }
+        return date;
     }
 }
