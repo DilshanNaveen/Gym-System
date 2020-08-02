@@ -46,7 +46,7 @@ public class MyGymManager implements GymManager{
                 flag =  true;
                 listOfAllMembers.remove(selectedMember);
                 System.out.println("------------------------------------------------------------");
-                System.out.println("|\t\t Membership No " + membershipNo + " Successfully Removed.\t\t |");
+                System.out.println("|\t\t Membership No " + selectedMember.getName() + " Successfully Removed.\t\t |");
                 System.out.println("------------------------------------------------------------\n");
                 System.out.println("\nNo of free slots : " + (100 - listOfAllMembers.size()));
 
