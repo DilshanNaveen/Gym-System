@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,10 +21,6 @@ public class SearchUI extends Application {
     TableView<Member> table;
 
     private final static MyGymManager manager = new MyGymManager();
-    private List<DefaultMember> memberList = new ArrayList<DefaultMember>();
-
-    public SearchUI() throws IOException {
-    }
 
     public static void main(String[] args) {launch(args);}
 
@@ -49,32 +44,22 @@ public class SearchUI extends Application {
         buttonSection.setPrefWidth(300);
         buttonSection.setPrefHeight(100);
 
-        Label newMemberTitle = new Label("Search Member");
+        Label newMemberTitle = new Label("Search Gym Members");
         newMemberTitle.getStyleClass().add("add-member-title-style");
         AnchorPane.setTopAnchor(newMemberTitle, 10.0);
-        AnchorPane.setLeftAnchor(newMemberTitle, 350.0);
+        AnchorPane.setLeftAnchor(newMemberTitle, 260.0);
 
         // Search By Label.
-        Label searchByLabel = new Label("Search By");
-        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
+        Label searchByLabel = new Label("Search By Member Membership No");
+        searchByLabel.getStyleClass().add("labelStyle");
         AnchorPane.setTopAnchor(searchByLabel, 20.0);
         AnchorPane.setLeftAnchor(searchByLabel, 20.0);
-        searchByLabel.setPrefWidth(300);
+        searchByLabel.setPrefWidth(350);
         searchByLabel.setPrefHeight(40);
-
-        // searching Method type checkbox.
-        ObservableList<String> searchingMethods =
-                FXCollections.observableArrayList("Membership Number", "Name");
-        final ComboBox searchingMethodComboBox = new ComboBox(searchingMethods);
-        searchingMethodComboBox.setValue("Membership Number");
-        AnchorPane.setTopAnchor(searchingMethodComboBox, 20.0);
-        AnchorPane.setLeftAnchor(searchingMethodComboBox, 130.0);
-        searchingMethodComboBox.setPrefWidth(300);
-        searchingMethodComboBox.setPrefHeight(20);
 
         // Search Label.
         Label searchLabel = new Label("Search");
-        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
+        searchLabel.getStyleClass().add("labelStyle");
         AnchorPane.setTopAnchor(searchLabel, 20.0);
         AnchorPane.setLeftAnchor(searchLabel, 470.0);
         searchLabel.setPrefWidth(300);
@@ -82,7 +67,6 @@ public class SearchUI extends Application {
 
         // Search Text Field.
         TextField searchTextField = new TextField();
-        // iRButton.setOnMouseClicked(e -> InterestRate.displayInterestRateCalculator(simpleSavingsCalculator, mainScene, simpleSavingsScene));
         AnchorPane.setTopAnchor(searchTextField, 20.0);
         AnchorPane.setLeftAnchor(searchTextField, 550.0);
         searchTextField.setPrefWidth(300);
@@ -97,9 +81,12 @@ public class SearchUI extends Application {
         searchButton.setPrefWidth(150);
         searchButton.setPrefHeight(50);
 
-        // Close Button.
-        Button closeButton = new Button("Close");
-        closeButton.setOnMouseClicked(e -> addMember.close());
+        // Reset Button.
+        Button closeButton = new Button("Reset");
+        closeButton.setOnMouseClicked(e -> {
+            table.setItems(manager.loadTable());
+            searchTextField.setText(null);
+        });
         AnchorPane.setTopAnchor(closeButton, 20.0);
         AnchorPane.setLeftAnchor(closeButton, 1055.0);
         closeButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
@@ -130,7 +117,7 @@ public class SearchUI extends Application {
         // Gender column
         TableColumn<Member, String> gender = new TableColumn<>("Gender");
         gender.setCellValueFactory(new PropertyValueFactory<Member, String>("gender"));
-        gender.setPrefWidth(132);
+        gender.setPrefWidth(100);
 
         // National ID column
         TableColumn<Member, String> nationalID = new TableColumn<>("National ID");
@@ -147,32 +134,37 @@ public class SearchUI extends Application {
         startMembershipDate.setCellValueFactory(new PropertyValueFactory<Member, String>("startMembershipDate"));
         startMembershipDate.setPrefWidth(132);
 
-        // Birthday column
-        TableColumn<Member, String> birthday = new TableColumn<>("Birthday");
-        birthday.setCellValueFactory(new PropertyValueFactory<Member, String>("birthday"));
-        birthday.setPrefWidth(132);
+        // Health Information column
+        TableColumn<Member, String> healthInfo = new TableColumn<>("Health Information");
+        healthInfo.setCellValueFactory(new PropertyValueFactory<Member, String>("healthInfo"));
+        healthInfo.setPrefWidth(132);
 
-        // Birthday column
+        // Age column
         TableColumn<Member, Integer> age = new TableColumn<>("Age");
         age.setCellValueFactory(new PropertyValueFactory<Member, Integer>("age"));
-        age.setPrefWidth(132);
+        age.setPrefWidth(52);
 
-        // Birthday column
+        // School Name column
         TableColumn<Member, String> schoolName = new TableColumn<>("School Name");
         schoolName.setCellValueFactory(new PropertyValueFactory<Member, String>("schoolName"));
-        schoolName.setPrefWidth(132);
+        schoolName.setPrefWidth(112);
+
+        // Grade Column
+        TableColumn<Member, String> grade = new TableColumn<>("Grade");
+        grade.setCellValueFactory(new PropertyValueFactory<Member, String>("grade"));
+        grade.setPrefWidth(132);
 
         table = new TableView<>();
         table.setPrefWidth(1190);
         table.setPrefHeight(450);
 
         table.setItems(manager.loadTable());
-        table.getColumns().addAll(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, birthday, age, schoolName);
+        table.getColumns().addAll(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, healthInfo, age, schoolName, grade);
 
         tableSection.getChildren().addAll(table);
-        inputSection.getChildren().addAll(searchByLabel, searchingMethodComboBox, searchLabel, searchTextField, searchButton, closeButton);
+        inputSection.getChildren().addAll(searchByLabel, searchLabel, searchTextField, searchButton, closeButton);
         addMemberPane.getChildren().addAll(newMemberTitle,inputSection, tableSection);
-        addMemberScene.getStylesheets().add("style.css");
+        addMemberScene.getStylesheets().add("com/company/style/style.css");
         addMember.setResizable(false);
         addMember.setScene(addMemberScene);
         addMember.show();

@@ -6,8 +6,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,16 +19,17 @@ public class MyGymManager implements GymManager{
 
     @Override
     public void addMember(DefaultMember newMember) {
+        System.out.println("\n===========================================================");
         System.out.println("No of occupied slots : " + listOfAllMembers.size());
         System.out.println("No of free slots : " + (100 - listOfAllMembers.size()));
 
         if (listOfAllMembers.size() < 100){
-            System.out.println(newMember.getName());
+            System.out.println("\n Adding data of " + newMember.getName() + " to the System\n");
 
             listOfAllMembers.add(newMember);
-
             System.out.println("No of occupied slots : " + listOfAllMembers.size());
-            System.out.println("No of free slots : " + (100 - listOfAllMembers.size())+"\n");
+            System.out.println("No of free slots : " + (100 - listOfAllMembers.size()));
+            System.out.println("===========================================================\n");
         }
         else{
             System.out.println("No free slot available \n");
@@ -72,21 +71,30 @@ public class MyGymManager implements GymManager{
     @Override
     public void printListMember() {
         System.out.println("\n \t===================================");
-        System.out.println("\t\t\t Members of Gym");
+        System.out.println("\t\t\t Members of the Gym");
         System.out.println("\t===================================\n");
         for (DefaultMember member: listOfAllMembers){
             System.out.println("\nMembership No : " + member.getMemberShipNo());
+            System.out.println("Name of the member : " + member.getName());
+
             if (member instanceof DefaultMember){
                 System.out.println("Type of the member : Default Member");
             }
             else if (member instanceof Over60Member){
+                System.out.println("Age : "+ ((Over60Member) member).getAge());
+                System.out.println("Health Information : "+ ((Over60Member) member).getHealthInfo());
                 System.out.println("Type of the member : Over 60 Member");
             }
             else{
+                System.out.println("School Name : "+ ((StudentMember) member).getSchoolName());
+                System.out.println("Grade : " + ((StudentMember) member).getGrade());
                 System.out.println("Type of the member : Student Member");
             }
-            System.out.println("Name of the member : " + member.getName());
             System.out.println("Membership start date : " + member.getStartMembershipDate());
+            System.out.println("Gender : "+ member.getGender());
+            System.out.println("National ID : "+ member.getNationalID());
+            System.out.println("Contact Number : "+ member.getContactNumber());
+            System.out.println("Membership Start Date : " + member.getStartMembershipDate()+"\n");
         }
         if (listOfAllMembers.size() == 0){
             System.out.println("Empty List\n");
@@ -122,6 +130,7 @@ public class MyGymManager implements GymManager{
                 if (member instanceof StudentMember){
                     memberDetails.put("Type", 1);
                     memberDetails.put("School Name", ((StudentMember) member).getSchoolName());
+                    memberDetails.put("Grade", ((StudentMember) member).getGrade());
                 }
                 else if (member instanceof Over60Member){
                     memberDetails.put("Type", 2);
@@ -156,6 +165,7 @@ public class MyGymManager implements GymManager{
 
     @Override
     public ObservableList<Member> loadTable(){
+
         ObservableList<Member> memberRow = FXCollections.observableArrayList();
 
         JSONParser parser = new JSONParser();
@@ -179,14 +189,16 @@ public class MyGymManager implements GymManager{
                 if (type == 1){
                     System.out.println(type);
                     String schoolName = (String) jsonObject.get("School Name");
-                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, schoolName));
+                    String grade = (String) jsonObject.get("Grade");
+                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, null, startMembershipDate, null, schoolName, grade));
                 }
                 else if (type == 2){
                     int age = (int)(long) jsonObject.get("Age");
-                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, age, null));
+                    String healthInfo = (String) jsonObject.get("Health Information");
+                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, healthInfo, startMembershipDate, age, null, null));
                 }
                 else if (type == 3){
-                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, null));
+                    memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, null, startMembershipDate, null, null, null));
                 }
             }
             return memberRow;
@@ -219,16 +231,17 @@ public class MyGymManager implements GymManager{
                     String startMembershipDate = (String) jsonObject.get("Membership Start Date");
 
                     if (type == 1){
-                        System.out.println(type);
                         String schoolName = (String) jsonObject.get("School Name");
-                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, schoolName));
+                        String grade = (String) jsonObject.get("Grade");
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, null,startMembershipDate, null, schoolName, grade));
                     }
                     else if (type == 2){
                         int age = (int)(long) jsonObject.get("Age");
-                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, age, null));
+                        String healthInfo = (String) jsonObject.get("Health Information");
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, healthInfo,startMembershipDate, age, null,null));
                     }
                     else if (type == 3){
-                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, null));
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, null, startMembershipDate, null, null,null));
                     }
                     return memberRow;
                 }
@@ -259,9 +272,9 @@ public class MyGymManager implements GymManager{
                 DefaultMember oldMemberData =  null;
 
                 if (type == 1){
-                    System.out.println(type);
                     String schoolName = (String) jsonObject.get("School Name");
-                    oldMemberData = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, startMembershipDate, schoolName);
+                    String grade = (String) jsonObject.get("Grade");
+                    oldMemberData = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, startMembershipDate, schoolName, grade);
                 }
                 else if (type == 2){
                     int age = (int)(long) jsonObject.get("Age");
@@ -278,6 +291,7 @@ public class MyGymManager implements GymManager{
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

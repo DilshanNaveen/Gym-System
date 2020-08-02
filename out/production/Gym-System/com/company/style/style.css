@@ -52,3 +52,7 @@ ComboBox{
 .add-member-button{
     -fx-background-color: #47C9A7;
 }
+
+.labelStyle{
+    -fx-font-size: 20;
+}

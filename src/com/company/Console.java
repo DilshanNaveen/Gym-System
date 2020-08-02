@@ -43,8 +43,20 @@ public class Console {
                     manager.printListMember();
                     break;
                 case 4:
-                    SearchUI.launch(SearchUI.class, args);
-                    break;
+                    System.out.println("First You Need To Save Your Data If you didn't");
+                    System.out.print("Enter 'Y' To save, Enter 'N' to Continue Without Saving :  ");
+                    String secondChoice = newScanner.next();
+                    switch (secondChoice) {
+                        case "Y":
+                        case "y":
+                            manager.save();
+                            SearchUI.launch(SearchUI.class, args);
+                            break;
+                        case "N":
+                        case "n":
+                            SearchUI.launch(SearchUI.class, args);
+                            break;
+                    }
                 case 5:
                     manager.sortList();
                     break;
@@ -110,7 +122,9 @@ public class Console {
                             break;
                         case "S":
                         case "s":
-                            newMember = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, getStudentData());
+                            System.out.println("Enter Your Grade : ");
+                            String grade = newScanner.next();
+                            newMember = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, getStudentData(), grade);
                             break;
                         case "O":
                         case "o":

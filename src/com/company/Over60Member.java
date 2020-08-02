@@ -21,7 +21,7 @@ public class Over60Member extends DefaultMember {
             this.age = age;
         }
         else{
-            // value error
+            System.out.println("Age Isn't in Range");
         }
     }
 
