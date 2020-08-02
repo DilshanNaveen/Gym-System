@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Console {
 
-    FileWriter file = new FileWriter("members.json", true);
+    FileWriter file = new FileWriter("com/company/data/members.json", true);
     private final static MyGymManager manager = new MyGymManager();
 
     public Console() throws IOException {
@@ -26,7 +26,8 @@ public class Console {
             System.out.println(" 4.Enter No 4 to Search Members.");
             System.out.println(" 5.Enter No 5 to Sort.");
             System.out.println(" 6.Enter No 6 to Save.");
-            System.out.println(" 7.Enter No 7 to Quit. \n");
+            System.out.println(" 7.Enter No 7 to load saved data.");
+            System.out.println(" 8.Enter No 8 to Quit. \n");
 
             System.out.print("Your choice : ");
             int choice = newScanner.nextInt();
@@ -42,7 +43,7 @@ public class Console {
                     manager.printListMember();
                     break;
                 case 4:
-                    Table.launch(Table.class, args);
+                    SearchUI.launch(SearchUI.class, args);
                     break;
                 case 5:
                     manager.sortList();
@@ -51,6 +52,9 @@ public class Console {
                     manager.save();
                     break;
                 case 7:
+                    manager.loadMemberList();
+                    break;
+                case 8:
                     System.exit(0);
                     break;
 
@@ -97,16 +101,16 @@ public class Console {
                     System.out.print("Type : ");
                     String type = newScanner.next();
 
-                    DefaultMember member =  null;
+                    DefaultMember newMember =  null;
 
                     switch (type){
                         case "D":
                         case "d":
-                            member = new DefaultMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate);
+                            newMember = new DefaultMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate);
                             break;
                         case "S":
                         case "s":
-                            member = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, getStudentData());
+                            newMember = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, getStudentData());
                             break;
                         case "O":
                         case "o":
@@ -114,13 +118,13 @@ public class Console {
                             Integer age = newScanner.nextInt();
                             System.out.print("Enter Your Health Information : ");
                             String healthInfo = newScanner.next();
-                            member = new Over60Member(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, age, healthInfo);
+                            newMember = new Over60Member(membershipNo, name, gender, nationalID, contactNumber, membershipStartDate, age, healthInfo);
                             break;
                         default:
                             System.out.println("\n Invalid Input \n");
                     }
                     System.out.print("\n");
-                    manager.addMember(member);
+                    manager.addMember(newMember);
                     break;
 
                 default:

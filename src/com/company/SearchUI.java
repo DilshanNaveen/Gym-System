@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table extends Application {
+public class SearchUI extends Application {
 
     Stage addMember;
     TableView<Member> table;
@@ -24,7 +24,7 @@ public class Table extends Application {
     private final static MyGymManager manager = new MyGymManager();
     private List<DefaultMember> memberList = new ArrayList<DefaultMember>();
 
-    public Table() throws IOException {
+    public SearchUI() throws IOException {
     }
 
     public static void main(String[] args) {launch(args);}
@@ -90,7 +90,7 @@ public class Table extends Application {
 
         // Search Button.
         Button searchButton = new Button("Search");
-        searchButton.setOnMouseClicked(e -> table.setItems(manager.loadTable()));
+        searchButton.setOnMouseClicked(e -> table.setItems(manager.searchTableById(Integer.parseInt(searchTextField.getText()))));
         AnchorPane.setTopAnchor(searchButton, 20.0);
         AnchorPane.setLeftAnchor(searchButton, 870.0);
         searchButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
@@ -177,4 +177,5 @@ public class Table extends Application {
         addMember.setScene(addMemberScene);
         addMember.show();
     }
+
 }

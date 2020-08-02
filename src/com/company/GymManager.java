@@ -13,8 +13,9 @@ public interface GymManager {
     public void printListMember();
     public void sortList();
     public void save();
-    public ObservableList<Member> loadTable() throws IOException, ParseException;
-    public List<DefaultMember> getMemberList();
+    public ObservableList<Member> loadTable();
+    public ObservableList<Member> searchTableById(int searchId);
+    public void loadMemberList();
     public DefaultMember getMemberByMemberShipNo(String membershipNo);
     public DefaultMember[] getMemberByName(String name);
 }

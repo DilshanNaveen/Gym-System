@@ -20,14 +20,14 @@ public class MyGymManager implements GymManager{
     private List<DefaultMember> listOfAllMembers = new ArrayList<DefaultMember>();
 
     @Override
-    public void addMember(DefaultMember member) {
+    public void addMember(DefaultMember newMember) {
         System.out.println("No of occupied slots : " + listOfAllMembers.size());
         System.out.println("No of free slots : " + (100 - listOfAllMembers.size()));
 
         if (listOfAllMembers.size() < 100){
-            System.out.println(member.getName());
+            System.out.println(newMember.getName());
 
-            listOfAllMembers.add(member);
+            listOfAllMembers.add(newMember);
 
             System.out.println("No of occupied slots : " + listOfAllMembers.size());
             System.out.println("No of free slots : " + (100 - listOfAllMembers.size())+"\n");
@@ -40,19 +40,19 @@ public class MyGymManager implements GymManager{
     @Override
     public boolean deleteMember(String membershipNo) {
         boolean flag =  false;
-        for (DefaultMember member: listOfAllMembers){
-            if (member.getMemberShipNo().equals(membershipNo));{
+        for (DefaultMember selectedMember: listOfAllMembers){
+            if (selectedMember.getMemberShipNo().equals(membershipNo));{
                 flag =  true;
-                listOfAllMembers.remove(member);
+                listOfAllMembers.remove(selectedMember);
                 System.out.println("------------------------------------------------------------");
                 System.out.println("|\t\t Membership No " + membershipNo + " Successfully Removed.\t\t |");
                 System.out.println("------------------------------------------------------------\n");
                 System.out.println("\nNo of free slots : " + (100 - listOfAllMembers.size()));
 
-                if (member instanceof DefaultMember){
+                if (selectedMember instanceof DefaultMember){
                     System.out.println("Type of deleted member : Default Member");
                 }
-                else if (member instanceof Over60Member){
+                else if (selectedMember instanceof Over60Member){
                     System.out.println("Type of deleted member : Over 60 Member");
                 }
                 else{
@@ -113,7 +113,7 @@ public class MyGymManager implements GymManager{
 
         for (DefaultMember member: listOfAllMembers) {
             try {
-                Object obj = jsonParser.parse(new FileReader("members.json"));
+                Object obj = jsonParser.parse(new FileReader("./src/com/company/data/members.json"));
                 JSONArray memberArray = (JSONArray)obj;
 
                 JSONObject memberDetails = new JSONObject();
@@ -141,7 +141,7 @@ public class MyGymManager implements GymManager{
 
                 memberArray.add(memberDetails);
 
-                FileWriter file = new FileWriter("members.json");
+                FileWriter file = new FileWriter("./src/com/company/data/members.json");
                 file.write(memberArray.toJSONString());
                 file.flush();
                 file.close();
@@ -161,7 +161,7 @@ public class MyGymManager implements GymManager{
         JSONParser parser = new JSONParser();
 
         try {
-            Object obj = parser.parse(new FileReader("members.json"));
+            Object obj = parser.parse(new FileReader("./src/com/company/data/members.json"));
             JSONArray array = (JSONArray) obj;
 
             for (int i = 0; array.size() > i; i++) {
@@ -190,19 +190,94 @@ public class MyGymManager implements GymManager{
                 }
             }
             return memberRow;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<DefaultMember> getMemberList() {
+    public ObservableList<Member> searchTableById(int searchId) {
+        ObservableList<Member> memberRow = FXCollections.observableArrayList();
+        JSONParser parser = new JSONParser();
+
+        try {
+            Object obj = parser.parse(new FileReader("./src/com/company/data/members.json"));
+            JSONArray array = (JSONArray) obj;
+
+            for (int i = 0; array.size() > i; i++) {
+
+                JSONObject jsonObject = (JSONObject) array.get(i);
+                int memberShipNo = (int)(long) jsonObject.get("Membership No");
+
+                if (memberShipNo == searchId){
+                    int type = (int)(long) jsonObject.get("Type");
+                    String name = (String) jsonObject.get("Member Name");
+                    String gender = (String) jsonObject.get("Gender");
+                    String nationalID = (String) jsonObject.get("National ID");
+                    long contactNumber = (long) jsonObject.get("Contact Number");
+                    String startMembershipDate = (String) jsonObject.get("Membership Start Date");
+
+                    if (type == 1){
+                        System.out.println(type);
+                        String schoolName = (String) jsonObject.get("School Name");
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, schoolName));
+                    }
+                    else if (type == 2){
+                        int age = (int)(long) jsonObject.get("Age");
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, age, null));
+                    }
+                    else if (type == 3){
+                        memberRow.add(new Member(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, null, null));
+                    }
+                    return memberRow;
+                }
+            }
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+    @Override
+    public void loadMemberList() {
+        JSONParser parser = new JSONParser();
+
+        try {
+            Object obj = parser.parse(new FileReader("./src/com/company/data/members.json"));
+            JSONArray array = (JSONArray) obj;
+
+            for (int i = 0; array.size() > i; i++) {
+
+                JSONObject jsonObject = (JSONObject) array.get(i);
+                int membershipNo = (int) (long) jsonObject.get("Membership No");
+                int type = (int) (long) jsonObject.get("Type");
+                String name = (String) jsonObject.get("Member Name");
+                String gender = (String) jsonObject.get("Gender");
+                String nationalID = (String) jsonObject.get("National ID");
+                int contactNumber = (int) (long) jsonObject.get("Contact Number");
+                String startMembershipDate = (String) jsonObject.get("Membership Start Date");
+                DefaultMember oldMemberData =  null;
+
+                if (type == 1){
+                    System.out.println(type);
+                    String schoolName = (String) jsonObject.get("School Name");
+                    oldMemberData = new StudentMember(membershipNo, name, gender, nationalID, contactNumber, startMembershipDate, schoolName);
+                }
+                else if (type == 2){
+                    int age = (int)(long) jsonObject.get("Age");
+                    String healthInfo = (String) jsonObject.get("Health Information");
+                    oldMemberData = new Over60Member(membershipNo, name, gender, nationalID, contactNumber, startMembershipDate, age, healthInfo);
+                }
+                else if (type == 3){
+                    oldMemberData = new DefaultMember(membershipNo, name, gender, nationalID, contactNumber, startMembershipDate);
+                }
+
+
+                addMember(oldMemberData);
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
