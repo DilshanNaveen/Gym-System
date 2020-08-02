@@ -5,8 +5,8 @@ public class StudentMember extends DefaultMember{
 
     private String schoolName;
 
-    public StudentMember(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, String birthday, String schoolName) {
-        super(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, birthday);
+    public StudentMember(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, String schoolName) {
+        super(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate);
         this.schoolName = schoolName;
     }
 

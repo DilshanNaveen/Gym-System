@@ -4,10 +4,12 @@ package com.company;
 public class Over60Member extends DefaultMember {
 
     private Integer age;
+    private String healthInfo;
 
-    public Over60Member(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, String birthday,  Integer age) {
-        super(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, birthday);
+    public Over60Member(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, Integer age, String healthInfo) {
+        super(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate);
         this.age = age;
+        this.healthInfo = healthInfo;
     }
 
     public Integer getAge() {
@@ -21,7 +23,13 @@ public class Over60Member extends DefaultMember {
         else{
             // value error
         }
+    }
 
+    public String getHealthInfo() {
+        return healthInfo;
+    }
 
+    public void setHealthInfo(String healthInfo) {
+        this.healthInfo = healthInfo;
     }
 }

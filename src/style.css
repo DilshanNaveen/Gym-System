@@ -10,7 +10,7 @@
 }
 
 Label{
-    -fx-font-size: 25;
+    -fx-font-size: 10;
 }
 
 .add-member-title-style{
@@ -51,7 +51,4 @@ ComboBox{
 
 .add-member-button{
     -fx-background-color: #47C9A7;
-}
-TableColumn{
-    -fx-font-size: 10;
 }

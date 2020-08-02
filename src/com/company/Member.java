@@ -2,46 +2,43 @@ package com.company;
 
 
 public class Member {
-    private String memberShipNo;
+    private long memberShipNo;
     private String name;
     private String gender;
     private String nationalID;
-    private Integer contactNumber;
+    private long contactNumber;
     private String startMembershipDate;
-    private String birthday;
     private Integer age;
     private String schoolName;
 
 
-    public Member(Integer memberShipNo, String name, String nationalID, Integer contactNumber, String startMembershipDate, String birthday, int i, String pcc) {
-        this.memberShipNo = "";
+    public Member() {
+        this.memberShipNo = 0;
         this.name = "";
         this.gender = "";
         this.nationalID = "";
         this.contactNumber = 0;
-        this.startMembershipDate = this.startMembershipDate;
-        this.birthday = "0000-00-00";
+        this.startMembershipDate = "";
         this.age = 0;
         this.schoolName = "";
     }
 
-    public Member(String memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, String birthday, Integer age, String schoolName) {
+    public Member(long memberShipNo, String name, String gender, String nationalID, long contactNumber, String startMembershipDate, Integer age, String schoolName) {
         this.memberShipNo = memberShipNo;
         this.name = name;
         this.gender = gender;
         this.nationalID = nationalID;
         this.contactNumber = contactNumber;
         this.startMembershipDate = startMembershipDate;
-        this.birthday = birthday;
         this.age = age;
         this.schoolName = schoolName;
     }
 
-    public String getMemberShipNo() {
+    public long getMemberShipNo() {
         return memberShipNo;
     }
 
-    public void setMemberShipNo(String memberShipNo) {
+    public void setMemberShipNo(long memberShipNo) {
         this.memberShipNo = memberShipNo;
     }
 
@@ -69,11 +66,11 @@ public class Member {
         this.nationalID = nationalID;
     }
 
-    public Integer getContactNumber() {
+    public long getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(long contactNumber) {
         this.contactNumber = contactNumber;
     }
 
@@ -83,14 +80,6 @@ public class Member {
 
     public void setStartMembershipDate(String startMembershipDate) {
         this.startMembershipDate = startMembershipDate;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
     }
 
     public Integer getAge() {

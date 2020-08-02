@@ -8,16 +8,14 @@ public class DefaultMember implements Comparable<DefaultMember>{
     private String nationalID;
     private Integer contactNumber;
     private String startMembershipDate;
-    private String birthday;
 
-    public DefaultMember(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate, String birthday) {
+    public DefaultMember(Integer memberShipNo, String name, String gender, String nationalID, Integer contactNumber, String startMembershipDate) {
         this.memberShipNo = memberShipNo;
         this.name = name;
         this.gender = gender;
         this.nationalID = nationalID;
         this.contactNumber = contactNumber;
         this.startMembershipDate = startMembershipDate;
-        this.birthday = birthday;
     }
 
     public Integer getMemberShipNo() {
@@ -66,14 +64,6 @@ public class DefaultMember implements Comparable<DefaultMember>{
 
     public void setStartMembershipDate(String startMembershipDate) {
         this.startMembershipDate = startMembershipDate;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
     }
 
     @Override

@@ -10,7 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class Table extends Application {
 
     private final static MyGymManager manager = new MyGymManager();
     private List<DefaultMember> memberList = new ArrayList<DefaultMember>();
+
+    public Table() throws IOException {
+    }
 
     public static void main(String[] args) {launch(args);}
 
@@ -85,7 +90,7 @@ public class Table extends Application {
 
         // Search Button.
         Button searchButton = new Button("Search");
-        // searchButton.setOnMouseClicked(e -> addMember.close());
+        searchButton.setOnMouseClicked(e -> table.setItems(manager.loadTable()));
         AnchorPane.setTopAnchor(searchButton, 20.0);
         AnchorPane.setLeftAnchor(searchButton, 870.0);
         searchButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
@@ -161,7 +166,7 @@ public class Table extends Application {
         table.setPrefWidth(1190);
         table.setPrefHeight(450);
 
-        table.setItems(getMember());
+        table.setItems(manager.loadTable());
         table.getColumns().addAll(memberShipNo, name, gender, nationalID, contactNumber, startMembershipDate, birthday, age, schoolName);
 
         tableSection.getChildren().addAll(table);
@@ -171,19 +176,5 @@ public class Table extends Application {
         addMember.setResizable(false);
         addMember.setScene(addMemberScene);
         addMember.show();
-    }
-
-    public ObservableList<Member> getMember(){
-        ObservableList<Member> memberRow = FXCollections.observableArrayList();
-        for (DefaultMember member: memberList){
-            System.out.println("Membership No : " + member.getMemberShipNo());
-            if (member instanceof StudentMember){
-                memberRow.add(new Member(member.getMemberShipNo(), member.getName(), member.getNationalID(), member.getContactNumber(), member.getStartMembershipDate(), member.getBirthday(), 18, "pcc"));
-            }
-        }
-        if (memberList.size() == 0){
-            System.out.println("Empty List");
-        }
-        return memberRow;
     }
 }
