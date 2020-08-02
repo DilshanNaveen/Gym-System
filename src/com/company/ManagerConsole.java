@@ -4,12 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Console {
+public class ManagerConsole {
 
     FileWriter file = new FileWriter("com/company/data/members.json", true);
     private final static MyGymManager manager = new MyGymManager();
 
-    public Console() throws IOException {
+    public ManagerConsole() throws IOException {
     }
 
     public static void main(String[] args) {

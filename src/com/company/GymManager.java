@@ -16,6 +16,4 @@ public interface GymManager {
     public ObservableList<Member> loadTable();
     public ObservableList<Member> searchTableById(int searchId);
     public void loadMemberList();
-    public DefaultMember getMemberByMemberShipNo(String membershipNo);
-    public DefaultMember[] getMemberByName(String name);
 }
